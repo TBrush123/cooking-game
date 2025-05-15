@@ -1,7 +1,4 @@
-extends CharacterBody2D
-
-var speed: float = 300.0
-var knockback: Vector2 = Vector2.ZERO
+extends entity
 
 func take_input() -> Vector2:
 	var direction = Vector2.ZERO
@@ -20,7 +17,7 @@ func take_input() -> Vector2:
 func _process(_delta: float) -> void:
 	var direction = take_input()
 
-	velocity = direction * speed + knockback
-	knockback = lerp(knockback, Vector2.ZERO, 0.1)
+	self.velocity = direction * speed + knockback
+	self.knockback = lerp(knockback, Vector2.ZERO, 0.1)
 	
 	move_and_slide()

@@ -1,0 +1,95 @@
+[gd_scene load_steps=14 format=3 uid="uid://ba2c5qtwdgnbw"]
+
+[ext_resource type="Script" uid="uid://7lccraj1n61a" path="res://Weapons/weapon.gd" id="1_0jw1c"]
+[ext_resource type="Texture2D" uid="uid://y7ib501st75n" path="res://Weapons/Assets/[SHOOT WITH MUZZLE FLASH] Revolver - Colt 45.png" id="1_rphr7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0jw1c"]
+atlas = ExtResource("1_rphr7")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ue5o"]
+atlas = ExtResource("1_rphr7")
+region = Rect2(64, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g6cf3"]
+atlas = ExtResource("1_rphr7")
+region = Rect2(128, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iakxr"]
+atlas = ExtResource("1_rphr7")
+region = Rect2(192, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qm7ci"]
+atlas = ExtResource("1_rphr7")
+region = Rect2(256, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2rxqg"]
+atlas = ExtResource("1_rphr7")
+region = Rect2(320, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oa34q"]
+atlas = ExtResource("1_rphr7")
+region = Rect2(384, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dp8ke"]
+atlas = ExtResource("1_rphr7")
+region = Rect2(448, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8fpg8"]
+atlas = ExtResource("1_rphr7")
+region = Rect2(512, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ys5cw"]
+atlas = ExtResource("1_rphr7")
+region = Rect2(576, 0, 64, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f62qm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0jw1c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ue5o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g6cf3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iakxr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qm7ci")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2rxqg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oa34q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dp8ke")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8fpg8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ys5cw")
+}],
+"loop": false,
+"name": &"default",
+"speed": 24.0
+}]
+
+[node name="Weapon" type="Node2D"]
+script = ExtResource("1_0jw1c")
+
+[node name="WeaponPivot" type="Node2D" parent="."]
+position = Vector2(26, -10)
+
+[node name="WeaponSprite" type="AnimatedSprite2D" parent="WeaponPivot"]
+position = Vector2(-26, 11)
+sprite_frames = SubResource("SpriteFrames_f62qm")
+frame = 9
+frame_progress = 1.0
+offset = Vector2(26, -11)
