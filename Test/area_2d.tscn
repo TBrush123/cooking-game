@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://btk0eig1c5gwc"]
+
+[ext_resource type="Script" uid="uid://dhb8jayxjsm6e" path="res://Test/area_2d.gd" id="1_lqvtr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v8wyi"]
+radius = 134.123
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_lqvtr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_v8wyi")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
