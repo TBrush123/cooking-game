@@ -7,7 +7,6 @@ var attack: float = 7.0
 var knockback: Vector2 = Vector2.ZERO
 
 func take_damage(amount):
-    health -= amount
-    if health <= 0:
-        print("%s is kinda dead" % self.name)
-
+	health -= amount
+	if health <= 0:
+		print("%s is kinda dead" % self.name)
