@@ -1,19 +1,24 @@
-extends Area2D
+extends Node2D
 class_name weapon
-@onready var weapon_sprite: AnimatedSprite2D = $WeaponPivot/WeaponSprite
-@onready var weapon_pivot: Node2D = $WeaponPivot
+
+@onready var weapon_sprite: Sprite2D = $WeaponPivot/WeaponSprite
+@onready var hitbox_class: Area2D = $WeaponPivot/WeaponSprite/hitboxClass
 
 var offset_amount: float = 30.0
 var offset: float = 30.0
 var attacking: bool = false
 var player: CharacterBody2D
+var parent: CharacterBody2D
 var damage: float = 10.0
 
 func _ready() -> void:
 	player = get_parent()
-	connect("body_entered", check_hit)
+	hitbox_class.emitter = player
 
 func _process(_delta: float) -> void:
+	
+	if attacking:
+		return
 	hit()
 	var mouse_pos = get_global_mouse_position()
 	look_at(mouse_pos)
@@ -29,7 +34,3 @@ func _process(_delta: float) -> void:
 
 func hit() -> void:
 	pass
-
-func check_hit(body):
-	if body.has_method("take_damage") and body.is_in_group("enemies"):
-		body.take_damage(damage)

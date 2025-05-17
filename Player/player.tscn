@@ -1,11 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqu40ll7fjkb3"]
+[gd_scene load_steps=7 format=3 uid="uid://dqu40ll7fjkb3"]
 
 [ext_resource type="Script" uid="uid://bm7dc0jag5tgv" path="res://Player/player.gd" id="1_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://doecmd43424q4" path="res://icon.svg" id="1_l8h54"]
 [ext_resource type="PackedScene" uid="uid://ba2c5qtwdgnbw" path="res://Weapons/weapon.tscn" id="3_btcbx"]
+[ext_resource type="Script" uid="uid://cik2slm4m6jv6" path="res://Scripts/Hurtbox.gd" id="4_gwnis"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ntmi"]
 size = Vector2(130, 132)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k53q1"]
+size = Vector2(94, 96)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_4ntmi")
@@ -17,3 +21,11 @@ texture = ExtResource("1_l8h54")
 shape = SubResource("RectangleShape2D_4ntmi")
 
 [node name="Weapon" parent="." instance=ExtResource("3_btcbx")]
+
+[node name="hurtboxClass" type="Area2D" parent="."]
+script = ExtResource("4_gwnis")
+metadata/_custom_type_script = "uid://cik2slm4m6jv6"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtboxClass"]
+shape = SubResource("RectangleShape2D_k53q1")
+debug_color = Color(0.694749, 0.282514, 1, 0.42)

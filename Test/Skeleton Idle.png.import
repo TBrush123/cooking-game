@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://y7ib501st75n"
-path="res://.godot/imported/[SHOOT WITH MUZZLE FLASH] Revolver - Colt 45.png-c6ff6cbd06188c9adc62173baef98868.ctex"
+uid="uid://bjmujgwighxob"
+path="res://.godot/imported/Skeleton Idle.png-395ef52b26c8abbf7a90c3c99d6afd1b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Weapons/Assets/[SHOOT WITH MUZZLE FLASH] Revolver - Colt 45.png"
-dest_files=["res://.godot/imported/[SHOOT WITH MUZZLE FLASH] Revolver - Colt 45.png-c6ff6cbd06188c9adc62173baef98868.ctex"]
+source_file="res://Test/Skeleton Idle.png"
+dest_files=["res://.godot/imported/Skeleton Idle.png-395ef52b26c8abbf7a90c3c99d6afd1b.ctex"]
 
 [params]
 
