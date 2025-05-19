@@ -2,7 +2,7 @@ extends Node2D
 class_name weapon
 
 @onready var weapon_sprite: Sprite2D = $WeaponPivot/WeaponSprite
-@onready var hitbox_class: Area2D = $WeaponPivot/WeaponSprite/hitboxClass
+@onready var hitbox_class: Area2D = $WeaponPivot/WeaponSprite/HitboxComponent
 
 var offset_amount: float = 30.0
 var offset: float = 30.0
@@ -13,7 +13,6 @@ var damage: float = 10.0
 
 func _ready() -> void:
 	player = get_parent()
-	hitbox_class.emitter = player
 
 func _process(_delta: float) -> void:
 	

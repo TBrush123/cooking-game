@@ -2,34 +2,10 @@
 
 [ext_resource type="Script" uid="uid://ysa5wi5jknyd" path="res://Weapons/Scripts/knife.gd" id="1_0jw1c"]
 [ext_resource type="Texture2D" uid="uid://daoekjam7wfx1" path="res://Weapons/Assets/item knife-07.png" id="2_0jw1c"]
-[ext_resource type="Script" uid="uid://cpcvekugwlrj0" path="res://Scripts/Hitbox.gd" id="3_2ue5o"]
+[ext_resource type="Script" uid="uid://fmgajqx6dak" path="res://Scripts/Components/HitboxComponent.gd" id="3_2ue5o"]
 
 [sub_resource type="Animation" id="Animation_g6cf3"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("WeaponPivot:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponPivot/WeaponSprite/hitboxClass/CollisionShape2D:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
 [sub_resource type="Animation" id="Animation_2ue5o"]
 resource_name = "attack"
@@ -49,7 +25,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WeaponPivot/WeaponSprite/hitboxClass/CollisionShape2D:disabled")
+tracks/1/path = NodePath("WeaponPivot/WeaponSprite/HitboxComponent/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -66,8 +42,8 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g6cf3"]
-radius = 25.0
-height = 226.0
+radius = 16.9996
+height = 182.0
 
 [node name="Weapon" type="Node2D"]
 rotation = 1.5708
@@ -86,14 +62,15 @@ position = Vector2(103, -1)
 rotation = 1.5708
 texture = ExtResource("2_0jw1c")
 
-[node name="hitboxClass" type="Area2D" parent="WeaponPivot/WeaponSprite"]
-position = Vector2(1.99823, -94)
-rotation = -1.5708
+[node name="HitboxComponent" type="Area2D" parent="WeaponPivot/WeaponSprite"]
 script = ExtResource("3_2ue5o")
-metadata/_custom_type_script = "uid://cpcvekugwlrj0"
+emitter = "Player"
+metadata/_custom_type_script = "uid://fmgajqx6dak"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponPivot/WeaponSprite/hitboxClass"]
-position = Vector2(-52, -1.99981)
-rotation = 1.5708
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponPivot/WeaponSprite/HitboxComponent"]
+position = Vector2(-1.0006, -31)
 shape = SubResource("CapsuleShape2D_g6cf3")
-debug_color = Color(0.913345, 8.95232e-05, 0.720071, 0.42)
+disabled = true
+debug_color = Color(0.983662, 0, 0.350931, 0.42)
+
+[connection signal="area_entered" from="WeaponPivot/WeaponSprite/HitboxComponent" to="WeaponPivot/WeaponSprite/HitboxComponent" method="_on_area_entered"]

@@ -1,17 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://dqu40ll7fjkb3"]
+[gd_scene load_steps=8 format=3 uid="uid://dqu40ll7fjkb3"]
 
 [ext_resource type="Script" uid="uid://bm7dc0jag5tgv" path="res://Player/player.gd" id="1_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://doecmd43424q4" path="res://icon.svg" id="1_l8h54"]
 [ext_resource type="PackedScene" uid="uid://ba2c5qtwdgnbw" path="res://Weapons/weapon.tscn" id="3_btcbx"]
-[ext_resource type="Script" uid="uid://cik2slm4m6jv6" path="res://Scripts/Hurtbox.gd" id="4_gwnis"]
+[ext_resource type="PackedScene" uid="uid://c8bigjr8est0r" path="res://Scripts/Components/health_component.tscn" id="4_k53q1"]
+[ext_resource type="PackedScene" uid="uid://d0bxix0etg8kc" path="res://Scripts/Components/hurtbox_component.tscn" id="5_fhl08"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ntmi"]
 size = Vector2(130, 132)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k53q1"]
-size = Vector2(94, 96)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vtle1"]
+size = Vector2(90, 88)
 
 [node name="Player" type="CharacterBody2D"]
+collision_mask = 0
 script = ExtResource("1_4ntmi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -22,10 +24,12 @@ shape = SubResource("RectangleShape2D_4ntmi")
 
 [node name="Weapon" parent="." instance=ExtResource("3_btcbx")]
 
-[node name="hurtboxClass" type="Area2D" parent="."]
-script = ExtResource("4_gwnis")
-metadata/_custom_type_script = "uid://cik2slm4m6jv6"
+[node name="HealthComponent" parent="." instance=ExtResource("4_k53q1")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtboxClass"]
-shape = SubResource("RectangleShape2D_k53q1")
-debug_color = Color(0.694749, 0.282514, 1, 0.42)
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") groups=["Enemy", "Player"] instance=ExtResource("5_fhl08")]
+health_component = NodePath("../HealthComponent")
+emitter = "Player"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("RectangleShape2D_vtle1")
+debug_color = Color(0.585949, 0.549547, 0, 0.42)

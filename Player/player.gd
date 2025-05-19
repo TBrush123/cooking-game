@@ -1,4 +1,9 @@
-extends entity
+extends CharacterBody2D
+
+var direction: Vector2 = Vector2.ZERO
+var knockback: Vector2 = Vector2.ZERO
+
+var speed: float = 300.0
 
 func take_input() -> Vector2:
 	var dir = Vector2.ZERO
