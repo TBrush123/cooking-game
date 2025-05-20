@@ -1,8 +1,8 @@
 extends Node2D
 
 func _ready():
-	var dungeon = generate_dungeon(21, 8, 6)
-	print_dungeon(dungeon, 21)
+	var dungeon = generate_dungeon(21*5, 24*5, 18*5)
+	print_dungeon(dungeon, 21*5)
 
 func generate_dungeon(grid_size: int, main_path_length: int, max_side_rooms: int) -> Dictionary:
 	var dungeon: Dictionary = {}
@@ -25,7 +25,7 @@ func generate_dungeon(grid_size: int, main_path_length: int, max_side_rooms: int
 		if possible_dirs.is_empty():
 			path.pop_back()
 			if path.is_empty():
-				return generate_dungeon(grid_size, main_path_length, max_side_rooms) # fallback
+				return generate_dungeon(grid_size, main_path_length, max_side_rooms)
 			continue
 
 		var chosen = possible_dirs.pick_random()
@@ -36,7 +36,6 @@ func generate_dungeon(grid_size: int, main_path_length: int, max_side_rooms: int
 		dungeon[next_room] = "M"
 		path.append(next_room)
 
-	# Mark end room
 	dungeon[path.back()] = "E"
 
 	# --- SIDE ROOMS GENERATION ---
