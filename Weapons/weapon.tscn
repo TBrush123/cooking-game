@@ -64,6 +64,7 @@ texture = ExtResource("2_0jw1c")
 
 [node name="HitboxComponent" type="Area2D" parent="WeaponPivot/WeaponSprite"]
 script = ExtResource("3_2ue5o")
+attack_damage = 100.0
 emitter = "Player"
 metadata/_custom_type_script = "uid://fmgajqx6dak"
 
