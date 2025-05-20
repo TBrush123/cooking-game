@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dqu40ll7fjkb3"]
+[gd_scene load_steps=9 format=3 uid="uid://dqu40ll7fjkb3"]
 
 [ext_resource type="Script" uid="uid://bm7dc0jag5tgv" path="res://Player/player.gd" id="1_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://doecmd43424q4" path="res://icon.svg" id="1_l8h54"]
@@ -12,9 +12,13 @@ size = Vector2(130, 132)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vtle1"]
 size = Vector2(90, 88)
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k53q1"]
+size = Vector2(250, 230)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("item_pickup_hitbox")]
 collision_mask = 0
 script = ExtResource("1_4ntmi")
+item_pickup_hitbox = NodePath("ItemPickupArea")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_l8h54")
@@ -33,3 +37,12 @@ emitter = "Player"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 shape = SubResource("RectangleShape2D_vtle1")
 debug_color = Color(0.585949, 0.549547, 0, 0.42)
+
+[node name="ItemPickupArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemPickupArea"]
+shape = SubResource("RectangleShape2D_k53q1")
+debug_color = Color(0, 0.645392, 0.26108, 0.42)
+
+[connection signal="area_entered" from="ItemPickupArea" to="." method="_on_item_pickup_area_area_entered"]
+[connection signal="area_exited" from="ItemPickupArea" to="." method="_on_item_pickup_area_area_exited"]

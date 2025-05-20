@@ -3,7 +3,7 @@ class_name TestEnemy
 
 @export var item_scene: PackedScene
 
-var drop_items: Array = []
+var drop_items: Array
 
 
 var rarities = {
@@ -14,7 +14,9 @@ var rarities = {
 }
 
 func _ready() -> void:
-	drop_items.append(get_rarity())
+	for i in range(3):
+		drop_items.append(get_rarity())
+		
 	print(drop_items)
 	
 func get_rarity():

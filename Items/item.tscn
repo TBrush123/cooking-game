@@ -1,18 +1,75 @@
-[gd_scene load_steps=4 format=3 uid="uid://cyu0hcofu1knc"]
+[gd_scene load_steps=6 format=3 uid="uid://cyu0hcofu1knc"]
 
-[ext_resource type="Texture2D" uid="uid://p6pvwtup5isn" path="res://Items/Assets/Food_3.png" id="1_bkywi"]
 [ext_resource type="Script" uid="uid://cr70ren1nn4k6" path="res://Items/item.gd" id="1_p2kau"]
+[ext_resource type="Texture2D" uid="uid://dn207excim61x" path="res://Items/Assets/Food_0.png" id="3_3dnog"]
+
+[sub_resource type="Shader" id="Shader_p2kau"]
+code = "shader_type canvas_item;
+
+uniform vec4 clr : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+uniform int type : hint_range(1, 2) = 2;
+uniform float thickness = 0.6;
+uniform bool onoff = false;
+
+const vec2[8] DIRECTIONS = {
+	vec2(1.0, 0.0),
+	vec2(0.0, 1.0),
+	vec2(-1.0, 0.0),
+	vec2(0.0, -1.0),
+	vec2(1.0, 1.0),
+	vec2(-1.0, 1.0),
+	vec2(-1.0, -1.0),
+	vec2(1.0, -1.0)
+};
+
+float gtz(float input) { return max(0, sign(input)); }
+// returns 1 if input > 0, else 0
+
+float check(sampler2D tex, vec2 from, vec2 size) {
+	float result = 0.0;
+	for (int i = 0; i < 4 * type; i++) {
+		result += texture(tex, from + DIRECTIONS[i] * size * thickness).a;
+	}
+	return gtz(result);
+}
+
+void fragment() {
+	if (onoff) {
+		COLOR = mix(COLOR, clr, check(TEXTURE, UV, TEXTURE_PIXEL_SIZE) - gtz(COLOR.a));
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3dnog"]
+resource_local_to_scene = true
+shader = SubResource("Shader_p2kau")
+shader_parameter/clr = Color(1, 1, 1, 1)
+shader_parameter/type = 2
+shader_parameter/thickness = 0.6
+shader_parameter/onoff = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p2kau"]
-size = Vector2(142, 162)
+size = Vector2(150, 144)
 
-[node name="Item" type="Area2D" node_paths=PackedStringArray("sprite")]
+[node name="Item" type="Area2D" node_paths=PackedStringArray("sprite", "label")]
 script = ExtResource("1_p2kau")
 sprite = NodePath("Sprite2D")
+label = NodePath("Label")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_3dnog")
 scale = Vector2(10, 10)
-texture = ExtResource("1_bkywi")
+texture = ExtResource("3_3dnog")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_p2kau")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -67.0
+offset_top = -92.0
+offset_right = 69.0
+offset_bottom = -69.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
