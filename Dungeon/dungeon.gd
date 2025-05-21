@@ -1,6 +1,8 @@
 extends Node2D
 
 @export var room_scene: PackedScene
+@export var bridge_horiz_scene: PackedScene
+@export var bridge_vert_scene: PackedScene
 
 func _ready():
 	var dungeon = generate_dungeon(10, 10, 10)
@@ -78,11 +80,23 @@ func print_dungeon(dungeon: Dictionary, grid_size: int) -> void:
 		print(row)
 
 func create_dungeon(dungeon, grid_size):
-
 	for y in range(grid_size):
 		for x in range(grid_size):
 			var pos = Vector2i(x, y)
 			if dungeon.has(pos):
-				var room = room_scene.instantiate()
-				room.global_position = pos * 8 * 16 
+				var room = null
+				match dungeon[pos]:
+					"M": room = room_scene.instantiate()
+					"C": 
+						if dungeon.has(pos + Vector2i(0, 1)):
+							room = bridge_vert_scene.instantiate()
+						else:
+							room = bridge_horiz_scene.instantiate()
+					"B": room = room_scene.instantiate()
+					"S": room = room_scene.instantiate()
+					"E": room = room_scene.instantiate()
+
+				if not room:
+					continue
+				room.position = pos * 8 * 16 
 				add_child(room)
