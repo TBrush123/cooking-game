@@ -8,7 +8,7 @@ var player_inventory: Dictionary = {
 
 func _ready() -> void:
 	rng = RandomNumberGenerator.new()
-	rng.randomize()
+	rng.randomize()	
 
 func add_ingredient(item_name: String):
 	player_inventory["Ingredients"].append(item_name)

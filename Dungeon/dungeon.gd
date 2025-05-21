@@ -1,8 +1,11 @@
 extends Node2D
 
+@export var room_scene: PackedScene
+
 func _ready():
-	var dungeon = generate_dungeon(21*5, 24*5, 18*5)
-	print_dungeon(dungeon, 21*5)
+	var dungeon = generate_dungeon(10, 10, 10)
+	create_dungeon(dungeon, 10)
+	print_dungeon(dungeon, 10)	
 
 func generate_dungeon(grid_size: int, main_path_length: int, max_side_rooms: int) -> Dictionary:
 	var dungeon: Dictionary = {}
@@ -28,7 +31,7 @@ func generate_dungeon(grid_size: int, main_path_length: int, max_side_rooms: int
 				return generate_dungeon(grid_size, main_path_length, max_side_rooms)
 			continue
 
-		var chosen = possible_dirs.pick_random()
+		var chosen = possible_dirs[Global.rng.randi_range(0, possible_dirs.size()-1)]
 		var bridge = current + chosen
 		var next_room = current + chosen * 2
 
@@ -50,10 +53,11 @@ func generate_dungeon(grid_size: int, main_path_length: int, max_side_rooms: int
 			var bridge = room + dir
 			var side_room = room + dir * 2
 			if is_in_bounds(side_room, grid_size) and not dungeon.has(side_room):
-				if randf() < 0.5:
+				if Global.rng.randf() < 0.5:
 					dungeon[bridge] = "C"
 					dungeon[side_room] = "B"
 					side_rooms_placed += 1
+					path.insert(path.size()-2, side_room)
 
 	return dungeon
 
@@ -72,3 +76,13 @@ func print_dungeon(dungeon: Dictionary, grid_size: int) -> void:
 			else:
 				row += ". "
 		print(row)
+
+func create_dungeon(dungeon, grid_size):
+
+	for y in range(grid_size):
+		for x in range(grid_size):
+			var pos = Vector2i(x, y)
+			if dungeon.has(pos):
+				var room = room_scene.instantiate()
+				room.global_position = pos * 8 * 16 
+				add_child(room)
