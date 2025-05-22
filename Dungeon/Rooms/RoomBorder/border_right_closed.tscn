@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=4 uid="uid://c7pydgjkfb1fo"]
+
+[ext_resource type="TileSet" uid="uid://bmxiagy12cjc6" path="res://Dungeon/Rooms/Room.tres" id="1_u1hic"]
+
+[node name="BorderRightClosed" type="TileMapLayer"]
+tile_map_data = PackedByteArray("AAADAPz/AAAEAAEAAAADAP3/AAAEAAMAAAADAP7/AAAEAAMAAAADAAEAAAAEAAMAAAADAAIAAAAEAAMAAAADAAMAAAAEAAYAAAADAP//AAAEAAMAAAADAAAAAAAEAAMAAAA=")
+tile_set = ExtResource("1_u1hic")

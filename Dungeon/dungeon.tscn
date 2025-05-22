@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dh6pvag56ml3y"]
 
 [ext_resource type="Script" uid="uid://b6vnphtq4pj5q" path="res://Dungeon/dungeon.gd" id="1_2n5io"]
-[ext_resource type="PackedScene" uid="uid://cwgy3uxmyyyqe" path="res://Dungeon/Rooms/room.tscn" id="2_1r431"]
+[ext_resource type="PackedScene" uid="uid://bmsnfscpmxm8k" path="res://Dungeon/Rooms/room.tscn" id="2_1r431"]
 [ext_resource type="PackedScene" uid="uid://of3160fncr42" path="res://Dungeon/Rooms/bridge_horiz.tscn" id="3_f2hy1"]
 [ext_resource type="PackedScene" uid="uid://d4hdygtwl5ygx" path="res://Dungeon/Rooms/bridge_vert.tscn" id="4_3d7qw"]
 
