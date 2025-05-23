@@ -4,7 +4,7 @@ const BORDER_PATH := "res://Dungeon/Rooms/RoomBorder/"
 const CONTENT_PATH := "res://Dungeon/Rooms/RoomContent/"
 
 var border_cache := {}
-var content_chache := {}
+var content_cache := {}
 
 @export var room_scene: PackedScene
 
@@ -33,15 +33,15 @@ func get_border_scene(direction: String, is_open: bool) -> PackedScene:
 
 func get_content_scene(content: String) -> PackedScene:
 
-	if not content_chache.has(name):
+	if not content_cache.has(content):
 		var scene = load(CONTENT_PATH + content + ".tscn")
 		if scene:
-			border_cache[name] = scene
+			content_cache[content] = scene
 		else:
-			push_error("Missing border scene: " + name)
+			push_error("Missing content scene: " + content)
 			return null
 	
-	return border_cache[name]
+	return content_cache[content]
 
 
 func get_wall_config(pos: Vector2i, dungeon: Dictionary) -> Dictionary:
@@ -59,6 +59,12 @@ func has_room(pos: Vector2i, dungeon: Dictionary) -> bool:
 func assemble_room(pos: Vector2i, dungeon: Dictionary, parent: Node2D, content: String):
 	var config = get_wall_config(pos, dungeon)
 
+	var content_scene = get_content_scene(content)
+	if not content_scene:
+		return
+	var content_instance = content_scene.instantiate()
+	parent.get_node("Content").add_child(content_instance)
+
 	for direction in config.keys():
 		var border_scene = get_border_scene(direction, config[direction])
 		if not border_scene:
@@ -66,12 +72,7 @@ func assemble_room(pos: Vector2i, dungeon: Dictionary, parent: Node2D, content: 
 		var border_instance = border_scene.instantiate()
 		parent.get_node("Borders").add_child(border_instance)
 
-		var content_scene = get_content_scene(content)
-		if not content_scene:
-			return
-		var content_instance = content_scene.instantiate()
-		parent.get_node("Content").add_child(content_instance)
-
+		
 # --- Dungeon Generation ---
 func generate_dungeon(grid_size: int, main_path_length: int, max_side_rooms: int) -> Dictionary:
 	var dungeon: Dictionary = {}
