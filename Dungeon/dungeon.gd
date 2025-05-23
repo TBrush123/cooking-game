@@ -1,9 +1,13 @@
 extends Node2D
 
 const BORDER_PATH := "res://Dungeon/Rooms/RoomBorder/"
+const CONTENT_PATH := "res://Dungeon/Rooms/RoomContent/"
+
 var border_cache := {}
+var content_cache := {}
 
 @export var room_scene: PackedScene
+
 @export var bridge_horiz_scene: PackedScene
 @export var bridge_vert_scene: PackedScene
 
@@ -27,6 +31,19 @@ func get_border_scene(direction: String, is_open: bool) -> PackedScene:
 	
 	return border_cache[name]
 
+func get_content_scene(content: String) -> PackedScene:
+
+	if not content_cache.has(content):
+		var scene = load(CONTENT_PATH + content + ".tscn")
+		if scene:
+			content_cache[content] = scene
+		else:
+			push_error("Missing content scene: " + content)
+			return null
+	
+	return content_cache[content]
+
+
 func get_wall_config(pos: Vector2i, dungeon: Dictionary) -> Dictionary:
 	return {
 		"up": has_room(pos + Vector2i(0, -1), dungeon),
@@ -39,15 +56,23 @@ func has_room(pos: Vector2i, dungeon: Dictionary) -> bool:
 	return dungeon.has(pos) and dungeon[pos] != ""
 
 
-func assemble_room_border(pos: Vector2i, dungeon: Dictionary, parent: Node2D):
+func assemble_room(pos: Vector2i, dungeon: Dictionary, parent: Node2D, content: String):
 	var config = get_wall_config(pos, dungeon)
 
-	for direction in config.keys():
-		var scene = get_border_scene(direction, config[direction])
-		if scene:
-			var instance = scene.instantiate()
-			parent.get_node("Borders").add_child(instance)
+	var content_scene = get_content_scene(content)
+	if not content_scene:
+		return
+	var content_instance = content_scene.instantiate()
+	parent.get_node("Content").add_child(content_instance)
 
+	for direction in config.keys():
+		var border_scene = get_border_scene(direction, config[direction])
+		if not border_scene:
+			return
+		var border_instance = border_scene.instantiate()
+		parent.get_node("Borders").add_child(border_instance)
+
+		
 # --- Dungeon Generation ---
 func generate_dungeon(grid_size: int, main_path_length: int, max_side_rooms: int) -> Dictionary:
 	var dungeon: Dictionary = {}
@@ -126,7 +151,7 @@ func create_dungeon(dungeon, grid_size):
 						room = room_scene.instantiate()
 						room.position = pos * 8 * 16
 						add_child(room)
-						assemble_room_border(pos, dungeon, room)
+						assemble_room(pos, dungeon, room, "Basic")
 					"C":
 						if dungeon.has(pos + Vector2i(0, 1)):
 							room = bridge_vert_scene.instantiate()
