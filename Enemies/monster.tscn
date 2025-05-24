@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bfsrf0eby2mi"]
+[gd_scene load_steps=12 format=3 uid="uid://bfsrf0eby2mi"]
 
 [ext_resource type="Script" uid="uid://b2yi52swcrqup" path="res://Enemies/TestEnemy/monster.gd" id="1_g1224"]
 [ext_resource type="Texture2D" uid="uid://bjmujgwighxob" path="res://Enemies/TestEnemy/Assets/Skeleton Idle.png" id="1_tu63r"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://drtf611ckstnr" path="res://Scripts/Components/HurtboxComponent.gd" id="4_g1224"]
 [ext_resource type="Script" uid="uid://ct7cnyo6lun7j" path="res://Scripts/Components/HealthComponent.gd" id="4_qegr4"]
 [ext_resource type="Script" uid="uid://cmgjq41vhgnju" path="res://Enemies/TestEnemy/chase.gd" id="5_hielp"]
+[ext_resource type="PackedScene" uid="uid://cg5bv8o1ttlno" path="res://Effects/sparkle.tscn" id="8_iokas"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tucvw"]
 size = Vector2(106, 195)
@@ -48,6 +49,7 @@ move_speed = 120.0
 
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("4_qegr4")
+sparkle_scene = ExtResource("8_iokas")
 metadata/_custom_type_script = "uid://ct7cnyo6lun7j"
 
 [node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
