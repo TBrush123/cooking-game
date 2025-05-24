@@ -3,6 +3,7 @@ class_name HealthComponent
 
 @export var max_health := 100.0
 @export var sparkle_scene: PackedScene
+@export var sparkle_color := Color(1.0, 0.0, 0.0, 1.0)
 
 var health: float
 var parent
@@ -19,11 +20,23 @@ func damage(attack: Attack) -> void:
 			var drop_size = parent.drop_items.size()
 			for item in range(drop_size):
 				parent.drop()
+
+		if not sparkle_scene:
+			return
+
 		var sparkle = sparkle_scene.instantiate()
+
+		if not sparkle:
+			return
+
 		sparkle.position = global_position
+		var grandparent = parent.get_parent() if parent else null
+
+		if not grandparent:
+			return
 
 		parent.get_parent().add_child(sparkle)
-		sparkle.color = Color(1.0, 0.0, 0.0, 1.0)
-		sparkle.restart()
-
+		sparkle.color = sparkle_color
+		if sparkle.has_method("restart"):
+				sparkle.restart()
 		parent.queue_free()
