@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cyu0hcofu1knc"]
+[gd_scene load_steps=7 format=3 uid="uid://cyu0hcofu1knc"]
 
 [ext_resource type="Script" uid="uid://cr70ren1nn4k6" path="res://Items/item.gd" id="1_p2kau"]
+[ext_resource type="PackedScene" uid="uid://cg5bv8o1ttlno" path="res://Items/pickup_sparkle.tscn" id="2_3dnog"]
 [ext_resource type="Texture2D" uid="uid://dn207excim61x" path="res://Items/Assets/Food_0.png" id="3_3dnog"]
 
 [sub_resource type="Shader" id="Shader_p2kau"]
@@ -54,6 +55,7 @@ size = Vector2(150, 144)
 script = ExtResource("1_p2kau")
 sprite = NodePath("Sprite2D")
 label = NodePath("Label")
+pickup_sparkle_scene = ExtResource("2_3dnog")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_3dnog")
