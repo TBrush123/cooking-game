@@ -23,9 +23,11 @@ func light_down() -> void:
 	label.text = ""
 
 func pickup():
-	var pickup_sparkle = pickup_sparkle_scene.instantiate()
-	pickup_sparkle.position = global_position
-	get_parent().add_child(pickup_sparkle)
-	pickup_sparkle.restart()
+	if pickup_sparkle_scene:
+		var pickup_sparkle = pickup_sparkle_scene.instantiate()
+		pickup_sparkle.position = global_position
+		get_parent().add_child(pickup_sparkle)
+		pickup_sparkle.restart()
+		
 	Global.add_ingredient(item_name)
 	queue_free()
