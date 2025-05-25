@@ -11,6 +11,12 @@ var content_cache := {}
 @export var bridge_horiz_scene: PackedScene
 @export var bridge_vert_scene: PackedScene
 
+@export var test_room_rarities: Dictionary = {
+	"Fight": 1000,
+	"Trap": 500,
+	"Loot": 250
+}
+
 func _ready():
 	var dungeon = generate_dungeon(10, 10, 10)
 	create_dungeon(dungeon, 10)
@@ -72,6 +78,21 @@ func assemble_room(pos: Vector2i, dungeon: Dictionary, parent: Node2D, content: 
 		var border_instance = border_scene.instantiate()
 		parent.get_node("Borders").add_child(border_instance)
 
+# --- Content Handling ---
+func generate_room_content(room_rarities: Dictionary) -> String:
+	var weighted_sum = 0
+
+	for i in room_rarities:
+		weighted_sum += room_rarities[i]
+	
+	var item = Global.rng.randi_range(0, weighted_sum)
+
+	for n in room_rarities:
+		if item <= room_rarities[n]:
+			return n
+		item -= room_rarities[n]
+	return "None"
+
 		
 # --- Dungeon Generation ---
 func generate_dungeon(grid_size: int, main_path_length: int, max_side_rooms: int) -> Dictionary:
@@ -79,7 +100,7 @@ func generate_dungeon(grid_size: int, main_path_length: int, max_side_rooms: int
 	var directions = [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]
 
 	var center = Vector2i(grid_size / 2, grid_size / 2)
-	dungeon[center] = "S"
+	dungeon[center] = "Start"
 	var path: Array = [center]
 
 	# MAIN PATH
@@ -103,10 +124,10 @@ func generate_dungeon(grid_size: int, main_path_length: int, max_side_rooms: int
 		var next_room = current + chosen * 2
 
 		dungeon[bridge] = "C"
-		dungeon[next_room] = "M"
+		dungeon[next_room] = generate_room_content(test_room_rarities)
 		path.append(next_room)
 
-	dungeon[path.back()] = "E"
+	dungeon[path.back()] = "End"
 
 	# SIDE ROOMS
 	var side_rooms_placed = 0
@@ -121,7 +142,7 @@ func generate_dungeon(grid_size: int, main_path_length: int, max_side_rooms: int
 			if is_in_bounds(side_room, grid_size) and not dungeon.has(side_room):
 				if Global.rng.randf() < 0.5:
 					dungeon[bridge] = "C"
-					dungeon[side_room] = "B"
+					dungeon[side_room] = generate_room_content(test_room_rarities)
 					side_rooms_placed += 1
 					path.insert(path.size() - 2, side_room)
 
@@ -135,7 +156,7 @@ func print_dungeon(dungeon: Dictionary, grid_size: int) -> void:
 		var row = ""
 		for x in range(grid_size):
 			var pos = Vector2i(x, y)
-			row += (dungeon.get(pos, ".") + " ")
+			row += (dungeon.get(pos, ".")[0] + " ")
 		print(row)
 
 func create_dungeon(dungeon, grid_size):
@@ -146,16 +167,15 @@ func create_dungeon(dungeon, grid_size):
 				var kind = dungeon[pos]
 				var room = null
 
-				match kind:
-					"M", "B", "S", "E":
-						room = room_scene.instantiate()
-						room.position = pos * 8 * 16
-						add_child(room)
-						assemble_room(pos, dungeon, room, "Basic")
-					"C":
-						if dungeon.has(pos + Vector2i(0, 1)):
-							room = bridge_vert_scene.instantiate()
-						else:
-							room = bridge_horiz_scene.instantiate()
-						room.position = pos * 8 * 16
-						add_child(room)
+				if kind == "C":
+					if dungeon.has(pos + Vector2i(0, 1)):
+						room = bridge_vert_scene.instantiate()
+					else:
+						room = bridge_horiz_scene.instantiate()
+					room.position = pos * 8 * 16
+					add_child(room)
+				else:
+					room = room_scene.instantiate()
+					room.position = pos * 8 * 16
+					add_child(room)
+					assemble_room(pos, dungeon, room, kind)
