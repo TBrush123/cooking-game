@@ -1,7 +1,14 @@
-[gd_scene load_steps=2 format=4 uid="uid://ejv458gff1pb"]
+[gd_scene load_steps=2 format=4 uid="uid://2x0qta0u4u2g"]
 
-[ext_resource type="TileSet" uid="uid://bmxiagy12cjc6" path="res://Dungeon/Rooms/Room.tres" id="1_rk05e"]
+[ext_resource type="TileSet" uid="uid://bmxiagy12cjc6" path="res://Dungeon/Rooms/Room.tres" id="1_rqh8k"]
 
-[node name="Basic" type="TileMapLayer"]
+[node name="Trap" type="TileMapLayer"]
 tile_map_data = PackedByteArray("AAD+//7/AAACAA8AAAD///7/AAACAA8AAAD+//3/AAACAA8AAAD9//3/AAACAA8AAAD9//7/AAACAA8AAAD9////AAACAA8AAAD+////AAACAA8AAAD/////AAACAA8AAAD///3/AAACAA8AAAAAAP3/AAACAA8AAAABAP3/AAACAA8AAAACAP3/AAACAA8AAAACAP7/AAACAA8AAAABAP7/AAACAA8AAAAAAP7/AAACAA8AAAABAP//AAACAA8AAAACAP//AAACAA8AAAAAAP//AAACAA8AAAAAAAAAAAACAA8AAAAAAAEAAAACAA8AAAAAAAIAAAACAA8AAAABAAIAAAACAA8AAAABAAEAAAACAA8AAAACAAEAAAACAA8AAAACAAIAAAACAA8AAAACAAAAAAACAA8AAAABAAAAAAACAA8AAAD//wAAAAACAA8AAAD+/wAAAAACAA8AAAD9/wAAAAACAA8AAAD9/wEAAAACAA8AAAD+/wEAAAACAA8AAAD+/wIAAAACAA8AAAD//wIAAAACAA8AAAD//wEAAAACAA8AAAD9/wIAAAACAA8AAAA=")
-tile_set = ExtResource("1_rk05e")
+tile_set = ExtResource("1_rqh8k")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -13.0
+offset_right = 20.0
+offset_bottom = 10.0
+text = "Trap"
