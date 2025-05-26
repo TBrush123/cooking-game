@@ -5,6 +5,9 @@ class_name HitboxComponent
 @export var knockback_force: float = 100.0
 @export var emitter: String
 
+func _ready() -> void:
+	connect("area_entered", _on_area_entered)
+
 func _on_area_entered(area) -> void:
 	if area.has_method("damage") and emitter != area.emitter:
 		var attack = Attack.new()

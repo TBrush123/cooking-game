@@ -1,23 +1,27 @@
-[gd_scene load_steps=12 format=3 uid="uid://bfsrf0eby2mi"]
+[gd_scene load_steps=14 format=3 uid="uid://bfsrf0eby2mi"]
 
 [ext_resource type="Script" uid="uid://b2yi52swcrqup" path="res://Enemies/TestEnemy/monster.gd" id="1_g1224"]
 [ext_resource type="Texture2D" uid="uid://bjmujgwighxob" path="res://Enemies/TestEnemy/Assets/Skeleton Idle.png" id="1_tu63r"]
 [ext_resource type="PackedScene" uid="uid://cyu0hcofu1knc" path="res://Items/item.tscn" id="2_mjy1l"]
 [ext_resource type="Script" uid="uid://dcc7nbi0v2dws" path="res://Enemies/TestEnemy/state_machine.gd" id="2_qegr4"]
 [ext_resource type="Script" uid="uid://blk5jnl2je42p" path="res://Enemies/TestEnemy/idle.gd" id="3_qegr4"]
-[ext_resource type="Script" uid="uid://drtf611ckstnr" path="res://Scripts/Components/HurtboxComponent.gd" id="4_g1224"]
 [ext_resource type="Script" uid="uid://ct7cnyo6lun7j" path="res://Scripts/Components/HealthComponent.gd" id="4_qegr4"]
 [ext_resource type="Script" uid="uid://cmgjq41vhgnju" path="res://Enemies/TestEnemy/chase.gd" id="5_hielp"]
 [ext_resource type="PackedScene" uid="uid://cg5bv8o1ttlno" path="res://Effects/sparkle.tscn" id="8_iokas"]
+[ext_resource type="PackedScene" uid="uid://d0bxix0etg8kc" path="res://Scripts/Components/hurtbox_component.tscn" id="10_s3snc"]
+[ext_resource type="PackedScene" uid="uid://c1xnwkgygxpke" path="res://Scripts/Components/hitbox_component.tscn" id="10_ydum8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tucvw"]
 size = Vector2(106, 195)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hielp"]
-size = Vector2(187, 250)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ydum8"]
+size = Vector2(146, 230)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4rbiw"]
+size = Vector2(176, 254)
 
 [node name="BaseMonster" type="CharacterBody2D"]
-collision_layer = 2
+collision_layer = 3
 collision_mask = 0
 script = ExtResource("1_g1224")
 item_scene = ExtResource("2_mjy1l")
@@ -52,17 +56,6 @@ script = ExtResource("4_qegr4")
 sparkle_scene = ExtResource("8_iokas")
 metadata/_custom_type_script = "uid://ct7cnyo6lun7j"
 
-[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
-script = ExtResource("4_g1224")
-health_component = NodePath("../HealthComponent")
-emitter = "Enemy"
-metadata/_custom_type_script = "uid://drtf611ckstnr"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
-position = Vector2(-5.5, 2)
-shape = SubResource("RectangleShape2D_hielp")
-debug_color = Color(0.908467, 0.000113781, 0.736625, 0.42)
-
 [node name="Label" type="Label" parent="."]
 offset_left = -71.0
 offset_top = -181.0
@@ -71,3 +64,19 @@ offset_bottom = -126.0
 theme_override_font_sizes/font_size = 40
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="HitboxComponent" parent="." instance=ExtResource("10_ydum8")]
+position = Vector2(29, 27)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_ydum8")
+
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("10_s3snc")]
+collision_layer = 3
+collision_mask = 3
+health_component = NodePath("../HealthComponent")
+emitter = "Enemy"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("RectangleShape2D_4rbiw")
+debug_color = Color(0.935804, 1.84822e-05, 0.63487, 0.42)
