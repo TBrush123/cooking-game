@@ -2,10 +2,22 @@
 
 [ext_resource type="Script" uid="uid://ysa5wi5jknyd" path="res://Weapons/Scripts/knife.gd" id="1_0jw1c"]
 [ext_resource type="Texture2D" uid="uid://daoekjam7wfx1" path="res://Weapons/Assets/item knife-07.png" id="2_0jw1c"]
-[ext_resource type="Script" uid="uid://fmgajqx6dak" path="res://Scripts/Components/HitboxComponent.gd" id="3_2ue5o"]
+[ext_resource type="PackedScene" uid="uid://c1xnwkgygxpke" path="res://Scripts/Components/hitbox_component.tscn" id="3_2ue5o"]
 
 [sub_resource type="Animation" id="Animation_g6cf3"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponPivot/WeaponSprite/HitboxComponent/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_2ue5o"]
 resource_name = "attack"
@@ -56,22 +68,19 @@ libraries = {
 speed_scale = 0.7
 
 [node name="WeaponPivot" type="Node2D" parent="."]
+rotation = 0.785398
 
 [node name="WeaponSprite" type="Sprite2D" parent="WeaponPivot"]
 position = Vector2(103, -1)
 rotation = 1.5708
 texture = ExtResource("2_0jw1c")
 
-[node name="HitboxComponent" type="Area2D" parent="WeaponPivot/WeaponSprite"]
-script = ExtResource("3_2ue5o")
+[node name="HitboxComponent" parent="WeaponPivot/WeaponSprite" instance=ExtResource("3_2ue5o")]
 attack_damage = 100.0
 emitter = "Player"
-metadata/_custom_type_script = "uid://fmgajqx6dak"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponPivot/WeaponSprite/HitboxComponent"]
 position = Vector2(-1.0006, -31)
 shape = SubResource("CapsuleShape2D_g6cf3")
 disabled = true
 debug_color = Color(0.983662, 0, 0.350931, 0.42)
-
-[connection signal="area_entered" from="WeaponPivot/WeaponSprite/HitboxComponent" to="WeaponPivot/WeaponSprite/HitboxComponent" method="_on_area_entered"]

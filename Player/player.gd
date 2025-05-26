@@ -34,10 +34,8 @@ func pickup():
 	if areas == null:
 		return
 	for area in areas:
-		print("C")
 		if area.has_method("pickup"):
 			area.pickup()
-			print("D")
 			break
 
 func _on_item_pickup_area_area_entered(area:Area2D) -> void:

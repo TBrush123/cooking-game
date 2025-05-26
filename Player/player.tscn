@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dqu40ll7fjkb3"]
+[gd_scene load_steps=10 format=3 uid="uid://dqu40ll7fjkb3"]
 
 [ext_resource type="Script" uid="uid://bm7dc0jag5tgv" path="res://Player/player.gd" id="1_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://doecmd43424q4" path="res://icon.svg" id="1_l8h54"]
 [ext_resource type="PackedScene" uid="uid://ba2c5qtwdgnbw" path="res://Weapons/weapon.tscn" id="3_btcbx"]
 [ext_resource type="PackedScene" uid="uid://c8bigjr8est0r" path="res://Scripts/Components/health_component.tscn" id="4_k53q1"]
 [ext_resource type="PackedScene" uid="uid://d0bxix0etg8kc" path="res://Scripts/Components/hurtbox_component.tscn" id="5_fhl08"]
+[ext_resource type="PackedScene" uid="uid://cg5bv8o1ttlno" path="res://Effects/sparkle.tscn" id="5_vtle1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ntmi"]
 size = Vector2(130, 132)
@@ -16,7 +17,8 @@ size = Vector2(90, 88)
 size = Vector2(250, 230)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("item_pickup_hitbox")]
-collision_mask = 0
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_4ntmi")
 item_pickup_hitbox = NodePath("ItemPickupArea")
 
@@ -29,8 +31,11 @@ shape = SubResource("RectangleShape2D_4ntmi")
 [node name="Weapon" parent="." instance=ExtResource("3_btcbx")]
 
 [node name="HealthComponent" parent="." instance=ExtResource("4_k53q1")]
+sparkle_scene = ExtResource("5_vtle1")
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") groups=["Enemy", "Player"] instance=ExtResource("5_fhl08")]
+collision_layer = 3
+collision_mask = 3
 health_component = NodePath("../HealthComponent")
 emitter = "Player"
 

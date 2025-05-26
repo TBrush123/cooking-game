@@ -1,16 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://cjmo31kiys2bq"]
+[gd_scene load_steps=5 format=3 uid="uid://cjmo31kiys2bq"]
 
 [ext_resource type="PackedScene" uid="uid://dqu40ll7fjkb3" path="res://Player/player.tscn" id="1_v4qk2"]
 [ext_resource type="PackedScene" uid="uid://cyu0hcofu1knc" path="res://Items/item.tscn" id="3_gn2i3"]
 [ext_resource type="PackedScene" uid="uid://bfsrf0eby2mi" path="res://Enemies/monster.tscn" id="3_jte6n"]
+[ext_resource type="PackedScene" uid="uid://b5rs681vrvrbe" path="res://UI/hud.tscn" id="4_gn2i3"]
 
 [node name="Node" type="Node"]
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("1_v4qk2")]
 position = Vector2(145, 130)
+collision_mask = 0
 
 [node name="TestEnemy" parent="." groups=["Enemy"] instance=ExtResource("3_jte6n")]
 position = Vector2(641, 414)
 
 [node name="Item" parent="." instance=ExtResource("3_gn2i3")]
 position = Vector2(1003, 114)
+
+[node name="HUD" parent="." instance=ExtResource("4_gn2i3")]

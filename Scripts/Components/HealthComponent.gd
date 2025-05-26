@@ -11,9 +11,17 @@ var parent
 func _ready() -> void:
 	parent = get_parent()
 	health = max_health
+	
+	if parent.name == "Player":
+		Global.player_health = health
+
 
 func damage(attack: Attack) -> void:
 	health -= attack.attack_damage
+
+	if parent.name == "Player":
+		Global.player_health = health
+		Global.player_health_changed.emit()
 
 	if health <= 0:
 		if parent.has_method("drop"):

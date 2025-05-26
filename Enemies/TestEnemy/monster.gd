@@ -17,7 +17,6 @@ func _ready() -> void:
 	for i in range(3):
 		drop_items.append(get_rarity())
 		
-	print(drop_items)
 	
 func get_rarity():
 	var weighted_sum = 0

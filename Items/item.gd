@@ -7,7 +7,6 @@ extends Area2D
 var allow_pickup := false
 
 func set_texture(textPath: String):
-	print(textPath)
 	sprite.texture = load(textPath)
 	
 

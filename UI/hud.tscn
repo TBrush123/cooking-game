@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5rs681vrvrbe"]
+
+[ext_resource type="Script" uid="uid://ds6qvhrfjbc50" path="res://UI/hud.gd" id="1_ne75i"]
+
+[node name="HUD" type="Control" node_paths=PackedStringArray("health_bar")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ne75i")
+health_bar = NodePath("Health/HeathBar")
+
+[node name="Health" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Health" type="Label" parent="Health"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Health"
+
+[node name="HeathBar" type="ProgressBar" parent="Health"]
+layout_mode = 0
+offset_top = 28.0
+offset_right = 498.0
+offset_bottom = 55.0
