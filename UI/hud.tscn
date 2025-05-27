@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b5rs681vrvrbe"]
+[gd_scene load_steps=3 format=3 uid="uid://b5rs681vrvrbe"]
 
 [ext_resource type="Script" uid="uid://ds6qvhrfjbc50" path="res://UI/hud.gd" id="1_ne75i"]
+[ext_resource type="PackedScene" uid="uid://coe71lr2uu44" path="res://UI/Inventory/inventory.tscn" id="2_bytes"]
 
 [node name="HUD" type="Control" node_paths=PackedStringArray("health_bar")]
 layout_mode = 3
@@ -28,3 +29,6 @@ layout_mode = 0
 offset_top = 28.0
 offset_right = 498.0
 offset_bottom = 55.0
+
+[node name="Inventory" parent="." instance=ExtResource("2_bytes")]
+layout_mode = 1
