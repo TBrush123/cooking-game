@@ -1,13 +1,14 @@
 extends Node
 
 signal player_health_changed
+signal inventory_updated
 
 var player_health: float = 100.0
 
 var rng: RandomNumberGenerator
 var player_inventory: Dictionary = {
-	"Ingredients": [],
-	"Weapons": [],
+	"ingredients": [],
+	"weapons": [],
 }
 
 func _ready() -> void:
@@ -15,6 +16,10 @@ func _ready() -> void:
 	rng.randomize()	
 
 
-func add_ingredient(item_name: String):
-	player_inventory["Ingredients"].append(item_name)
-	print(player_inventory["Ingredients"])
+func add_item(item_name: String, item_type: String):
+	if item_type in player_inventory:
+		player_inventory[item_type].append(item_name)
+		inventory_updated.emit()
+	else:
+		print("Invalid item type")
+	print(player_inventory)

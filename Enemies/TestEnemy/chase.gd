@@ -9,6 +9,8 @@ func enter():
 	player = get_tree().get_first_node_in_group("Player")
 
 func Physics_Update(_delta: float):
+	if not player:
+		return
 	var direction = player.global_position - enemy.global_position
 
 	if direction.length() > 150:

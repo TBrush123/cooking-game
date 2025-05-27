@@ -28,5 +28,5 @@ func pickup():
 		get_parent().add_child(pickup_sparkle)
 		pickup_sparkle.restart()
 		
-	Global.add_ingredient(item_name)
+	Global.add_item(item_name, "ingredients")
 	queue_free()

@@ -69,6 +69,7 @@ vertical_alignment = 1
 position = Vector2(29, 27)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(-15, -15)
 shape = SubResource("RectangleShape2D_ydum8")
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("10_s3snc")]
