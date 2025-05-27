@@ -6,7 +6,7 @@ var inventory: Dictionary
 
 
 func _ready() -> void:
-	hide_invetory()
+	hide_inventory()
 	update_inventory()
 	Global.inventory_updated.connect(update_inventory)
 
@@ -15,14 +15,14 @@ func update_inventory() -> void:
 		cell.queue_free()
 
 	inventory = Global.player_inventory
-	var inventory_size: int = inventory["ingredients"].size() - 1 
+	var ingredients = inventory["ingredients"]
 	for i in range(16):
 		
 		var cell = Panel.new()
 
-		if i <= inventory_size:
+		if i < ingredients.size():
 			var label: Label = Label.new()
-			label.text = inventory["ingredients"][i]
+			label.text = ingredients[i]
 			cell.add_child(label)
 
 		cell.custom_minimum_size = Vector2(32, 32)
@@ -32,12 +32,13 @@ func show_inventory() -> void:
 	visible = true
 	
 
-func hide_invetory() -> void:
+func hide_inventory() -> void:
 	visible = false
 
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("Inventory"):
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("Inventory"):
+		get_viewport().set_input_as_handled()
 		if visible:
-			hide_invetory()
+			hide_inventory()
 		else:
 			show_inventory()
