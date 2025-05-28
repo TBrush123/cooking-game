@@ -1,6 +1,11 @@
-extends Control
+extends Panel
 
 @export var inventory_grid: GridContainer
+@export var inventory_panel: PackedScene
+
+const ITEM_ASSETS_PATH: String = "res://Items/Assets/"
+
+var item_asset_buffer: Dictionary = {}
 
 var inventory: Dictionary
 
@@ -16,24 +21,28 @@ func update_inventory() -> void:
 
 	inventory = Global.player_inventory
 	var ingredients = inventory["ingredients"]
+
+	if not inventory_panel:
+		print("No inventory scene!")
+		return
+
 	for i in range(16):
 		
-		var cell = Panel.new()
+		var cell = inventory_panel.instantiate()
 
 		if i < ingredients.size():
-			var label: Label = Label.new()
-			label.text = ingredients[i]
-			cell.add_child(label)
+			cell.get_node("TextureRect").texture = load_texture(ingredients[i])
 
-		cell.custom_minimum_size = Vector2(32, 32)
 		inventory_grid.add_child(cell)
 
 func show_inventory() -> void:
 	visible = true
+	get_tree().paused = true
 	
 
 func hide_inventory() -> void:
 	visible = false
+	get_tree().paused = false
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("Inventory"):
@@ -42,3 +51,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			hide_inventory()
 		else:
 			show_inventory()
+
+func load_texture(texture_name) -> CompressedTexture2D:
+	if texture_name in item_asset_buffer:
+		return item_asset_buffer[texture_name]
+	
+	var new_texture = load(ITEM_ASSETS_PATH + "Food_" + texture_name + ".png")
+	item_asset_buffer[texture_name] = new_texture
+
+	return new_texture

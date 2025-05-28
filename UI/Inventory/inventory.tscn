@@ -1,9 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://coe71lr2uu44"]
+[gd_scene load_steps=3 format=3 uid="uid://coe71lr2uu44"]
 
 [ext_resource type="Script" uid="uid://cg504ahund4dq" path="res://inventory.gd" id="1_ym3yg"]
+[ext_resource type="PackedScene" uid="uid://5k6quq3huxb6" path="res://UI/Inventory/inventory_panel.tscn" id="2_k5s52"]
 
-[node name="Inventory" type="Control" node_paths=PackedStringArray("inventory_grid")]
-layout_mode = 3
+[node name="Inventory" type="Panel" node_paths=PackedStringArray("inventory_grid")]
+process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -11,6 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ym3yg")
 inventory_grid = NodePath("GridContainer")
+inventory_panel = ExtResource("2_k5s52")
 
 [node name="GridContainer" type="GridContainer" parent="."]
 layout_mode = 1
