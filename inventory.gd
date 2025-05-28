@@ -31,7 +31,9 @@ func update_inventory() -> void:
 		var cell = inventory_panel.instantiate()
 
 		if i < ingredients.size():
-			cell.get_node("TextureRect").texture = load_texture(ingredients[i])
+			var texture = load_texture(ingredients[i])
+			if texture:
+				cell.get_node("TextureRect").texture = texture
 
 		inventory_grid.add_child(cell)
 
@@ -56,7 +58,17 @@ func load_texture(texture_name) -> CompressedTexture2D:
 	if texture_name in item_asset_buffer:
 		return item_asset_buffer[texture_name]
 	
-	var new_texture = load(ITEM_ASSETS_PATH + "Food_" + texture_name + ".png")
+	var new_texture_path = ITEM_ASSETS_PATH + "Food_" + texture_name + ".png"
+
+	if not ResourceLoader.exists(new_texture_path):
+		print("Warning: Texture not found at path: ", new_texture_path)
+		return null
+	
+	var new_texture = load(new_texture_path)
+	if not new_texture:
+		print("Failed to load texture: ", new_texture_path)
+		return null
+	
 	item_asset_buffer[texture_name] = new_texture
 
 	return new_texture
