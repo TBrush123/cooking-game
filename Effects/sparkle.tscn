@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cg5bv8o1ttlno"]
 
 [node name="PickupSparkle" type="CPUParticles2D"]
+process_mode = 3
 emitting = false
 amount = 20
 lifetime = 0.4
