@@ -1,7 +1,14 @@
-[gd_scene format=3 uid="uid://5k6quq3huxb6"]
+[gd_scene load_steps=3 format=3 uid="uid://5k6quq3huxb6"]
 
-[node name="InventoryPanel" type="Panel"]
+[ext_resource type="Script" uid="uid://ck35bbyasfki4" path="res://UI/Inventory/inventory_panel.gd" id="1_pp364"]
+[ext_resource type="PackedScene" uid="uid://b6vtj8lolwlg0" path="res://UI/Inventory/item_options.tscn" id="2_qh4c2"]
+
+[node name="InventoryPanel" type="Button"]
 custom_minimum_size = Vector2(128, 128)
+offset_right = 128.0
+offset_bottom = 128.0
+script = ExtResource("1_pp364")
+options_scene = ExtResource("2_qh4c2")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1

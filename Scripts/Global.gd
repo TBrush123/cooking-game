@@ -2,6 +2,7 @@ extends Node
 
 signal player_health_changed
 signal inventory_updated
+signal inventory_cell_pressed
 
 var player_health: float = 100.0
 
