@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://b6vtj8lolwlg0"]
+
+[node name="ItemOptions" type="VBoxContainer"]
+z_index = 200
+offset_right = 146.0
+offset_bottom = 93.0
+
+[node name="Use" type="Button" parent="."]
+z_index = 300
+layout_mode = 2
+size_flags_vertical = 3
+text = "Use"
+
+[node name="Throw" type="Button" parent="."]
+z_index = 300
+layout_mode = 2
+size_flags_vertical = 3
+text = "Throw"
